@@ -8,7 +8,6 @@ import clipboard
 
 
 class Main(Wox):
-	DB_NAME = "./DB/Tips.db"
 	LOG_FILE = "./logs/error.txt"
 	TIPS_FILE = "./DB/tips.json"
 	def query(self, key):
