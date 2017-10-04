@@ -11,7 +11,7 @@ wpm install tips
 ```
 tip 
 ```
-将会列出所以的tip
+将会列出所有的tip，移动到对应的tip下回车可复制tip到粘帖板
 
 
 ![store tip](https://raw.githubusercontent.com/ev01ing/Wox.Plugin.Tips/master/docs/pics/1.png)
@@ -29,4 +29,4 @@ tip delete
 
 #### python依赖
 
-插件使用了time, traceback, json包，使用前请安装依赖包
+插件使用了time, clipboard, json包，使用前请安装依赖包

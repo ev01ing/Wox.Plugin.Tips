@@ -3,6 +3,8 @@ from wox import Wox
 import time
 import json
 import traceback
+import os
+import clipboard
 
 
 class Main(Wox):
@@ -87,9 +89,21 @@ class Main(Wox):
 		for tip in tips:
 			results.append({
 				"Title": tip['tip'],
-				"SubTitle": tip['updated_time']
+				"SubTitle": tip['updated_time'],
+				"IcoPath": "Images/pic.png",
+				"JsonRPCAction": {
+					"method": "copy_to_clip",
+					"parameters": [tip['tip']],
+					"dontHideAfterAction": False
+				}
 			})
+		with open("temp.txt", "w") as f:
+			for item in results:
+				f.write(json.dumps(item) + "\n")
 		return results
+
+	def copy_to_clip(self, text):
+		clipboard.copy(text)
 
 	def log_error(self, fun_str):
 		with open(self.LOG_FILE, "a") as f:
