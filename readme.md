@@ -29,4 +29,4 @@ tip delete
 
 #### python依赖
 
-插件使用了time, clipboard, json包，使用前请安装依赖包
+插件使用了time, clipboard, sqlite3包，使用前请安装依赖包

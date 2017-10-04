@@ -1,22 +1,19 @@
 # coding:utf-8
 from wox import Wox
+import sqlite3
 import time
-import json
 import traceback
-import os
 import clipboard
-
 
 class Main(Wox):
 	DB_NAME = "./DB/Tips.db"
 	LOG_FILE = "./logs/error.txt"
-	TIPS_FILE = "./DB/tips.json"
+
 	def query(self, key):
 		if key == "":
 			return self.list_tips()
 		if key in "delete":
 			return self.list_delete_tips()
-
 		results = []
 		results.append({
 			"Title": "stroe tip : %s" % key,
@@ -32,22 +29,25 @@ class Main(Wox):
 
 	def store_tip(self, info):
 		try:
+			conn = sqlite3.connect(self.DB_NAME)
+			conn.execute("CREATE TABLE IF NOT EXISTS tips (id INTEGER PRIMARY KEY , tip TEXT, updated_time TEXT);")
 			times = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())
-			tip = {"tip": info, "updated_time": times}
-			with open(self.TIPS_FILE, "a") as f:
-				f.write(json.dumps(tip) + "\n")
+			conn.execute("insert into tips (tip, updated_time) values (?, ? );", (info, times))
+			conn.commit()
+			conn.close()
 		except:
 			self.log_error("store_tip")
 
 
 	def get_tips(self):
 		try:
+			conn = sqlite3.connect(self.DB_NAME)
+			cursor = conn.execute("select * from tips order by id desc;")
 			results = []
-			with open(self.TIPS_FILE, "r") as f:
-				for line in f:
-					tip = json.loads(line.strip())
-					results.append({"tip": tip['tip'], "updated_time": tip['updated_time']})
-			return reversed(results)
+			for item in cursor:
+				results.append({"id": item[0], "tip": item[1], "updated_time": item[2]})
+			conn.close()
+			return results
 		except:
 			self.log_error("get_tips")
 
@@ -61,25 +61,18 @@ class Main(Wox):
 				"IcoPath": "Images/pic.png",
 				"JsonRPCAction": {
 					"method": "delete_tip",
-					"parameters": [tip['updated_time']],
+					"parameters": [tip['id']],
 					"dontHideAfterAction": False
 				}
 			})
 		return results
 
-	def delete_tip(self, times):
+	def delete_tip(self, id):
 		try:
-			tips = []
-			with open(self.TIPS_FILE, "r") as f:
-				for line in f:
-					tips.append(json.loads(line.strip()))
-			for tip in tips:
-				if times == tip["updated_time"]:
-					tips.remove(tip)
-					break
-			with open(self.TIPS_FILE, "w") as f:
-				for tip in tips:
-					f.write(json.dumps(tip) + "\n")
+			conn = sqlite3.connect(self.DB_NAME)
+			conn.execute("delete from tips where id = %s;" % str(id))
+			conn.commit()
+			conn.close()
 		except:
 			self.log_error("delete_tip")
 
@@ -91,15 +84,12 @@ class Main(Wox):
 				"Title": tip['tip'],
 				"SubTitle": tip['updated_time'],
 				"IcoPath": "Images/pic.png",
-				"JsonRPCAction": {
+				"JsonRPCAction":{
 					"method": "copy_to_clip",
-					"parameters": [tip['tip']],
+					"parameters": [key, ],
 					"dontHideAfterAction": False
 				}
 			})
-		with open("temp.txt", "w") as f:
-			for item in results:
-				f.write(json.dumps(item) + "\n")
 		return results
 
 	def copy_to_clip(self, text):
