@@ -7,21 +7,21 @@ wpm install tips
 
 
 #### 使用说明
-![tip](https://raw.githubusercontent.com/ev01ing/Wox.Plugin.Tips/master/docs/pics/2.png)
+![tip](https://raw.githubusercontent.com/ev01ing/Wox.Plugin.Tips/master/docs/pics/2.PNG)
 ```
 tip 
 ```
 将会列出所有的tip，移动到对应的tip下回车可复制tip到粘帖板
 
 
-![store tip](https://raw.githubusercontent.com/ev01ing/Wox.Plugin.Tips/master/docs/pics/1.png)
+![store tip](https://raw.githubusercontent.com/ev01ing/Wox.Plugin.Tips/master/docs/pics/1.PNG)
 ```
 tip little idea
 ```
 回车store tip将存储tip
 
 
-![delete tip](https://raw.githubusercontent.com/ev01ing/Wox.Plugin.Tips/master/docs/pics/3.png)
+![delete tip](https://raw.githubusercontent.com/ev01ing/Wox.Plugin.Tips/master/docs/pics/3.PNG)
 ```
 tip delete
 ```
