@@ -56,6 +56,7 @@ class Main(Wox):
 			results.append({
 				"Title": "delete %s" % tip['tip'],
 				"SubTitle": tip['updated_time'],
+				"IcoPath": "Images/pic.png",
 				"JsonRPCAction": {
 					"method": "delete_tip",
 					"parameters": [tip['updated_time']],
