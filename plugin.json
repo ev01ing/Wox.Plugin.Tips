@@ -1,0 +1,12 @@
+{
+    "ID":"D2D2C245674681687FE0C79D6C2A6D",
+    "ActionKeyword":"tip",
+    "Name":"tips",
+    "Description":"快速记录你的小想法",
+    "Author":"ev01ing",
+    "Version":"1.0",
+    "Language":"python",
+    "Website":"",
+    "IcoPath": "Images\\pic.png", 
+    "ExecuteFileName":"main.py"
+}
