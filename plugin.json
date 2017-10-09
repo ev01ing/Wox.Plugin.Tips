@@ -1,10 +1,10 @@
 {
-    "ID":"D2D2C245674681687FE0C79D6C2A6D",
+    "ID":"B4D3B69656E14D44865C8D818EAE47C6",
     "ActionKeyword":"tip",
     "Name":"tips",
     "Description":"快速记录你的小想法",
     "Author":"ev01ing",
-    "Version":"1.0",
+    "Version":"1.1.0",
     "Language":"python",
     "Website":"https://github.com/ev01ing/Wox.Plugin.Tips",
     "IcoPath": "Images\\pic.png", 

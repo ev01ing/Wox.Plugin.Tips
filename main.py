@@ -3,7 +3,6 @@ from wox import Wox
 import time
 import json
 import traceback
-import os
 import clipboard
 
 
