@@ -8,7 +8,7 @@ wpm install tips
 
 #### 使用说明
 ![tip](https://raw.githubusercontent.com/ev01ing/Wox.Plugin.Tips/master/docs/pics/wox.gif)
-```
+
 
 
 #### python依赖
