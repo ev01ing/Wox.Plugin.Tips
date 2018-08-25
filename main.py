@@ -1,23 +1,27 @@
 # coding:utf-8
-from wox import Wox
+from wox import Wox, WoxAPI
 import time
 import json
 import traceback
+import logging
 import clipboard
 import sys
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
+LOG_FILE = "./logs/log_tips.log"
+
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+                    datefmt='%a, %d %b %Y %H:%M:%S',
+                    filename=LOG_FILE,
+                    filemode='a')
 
 class Main(Wox):
-    LOG_FILE = "./logs/error.txt"
     TIPS_FILE = "./DB/tips.json"
 
     def query(self, key):
-
-        with open("temp.txt", "a") as output:
-            output.write(key + "\n")
 
         if key == "":
             return self.list_tips()
@@ -26,13 +30,13 @@ class Main(Wox):
 
         results = []
         results.append({
-            "Title": u"stroe tip : %s" % key,
-            "SubTitle": u"tips: %s" % key,
+            "Title": u'stroe tip : "%s"' % key,
+            "SubTitle": u'tips: "%s"' % key,
             "IcoPath": "Images/pic.png",
             "JsonRPCAction": {
                 "method": "store_tip",
                 "parameters": [key, ],
-                "dontHideAfterAction": False
+                "dontHideAfterAction": True
             }
         })
 
@@ -44,8 +48,9 @@ class Main(Wox):
             tip = {"tip": info, "updated_time": times}
             with open(self.TIPS_FILE, "a") as f:
                 f.write(json.dumps(tip) + "\n")
+            WoxAPI.change_query("tip")
         except:
-            self.log_error("store_tip")
+            logging.error(traceback.format_exc())
 
     def get_tips(self):
         try:
@@ -58,7 +63,7 @@ class Main(Wox):
                         results.append({"tip": tip['tip'], "updated_time": tip['updated_time']})
             return reversed(results)
         except:
-            self.log_error("get_tips")
+            logging.error(traceback.format_exc())
 
     def list_delete_tips(self):
         tips = self.get_tips()
@@ -90,7 +95,7 @@ class Main(Wox):
                 for tip in tips:
                     f.write(json.dumps(tip) + "\n")
         except:
-            self.log_error("delete_tip")
+            logging.error(traceback.format_exc())
 
     def list_tips(self):
         tips = self.get_tips()
@@ -106,17 +111,10 @@ class Main(Wox):
                     "dontHideAfterAction": False
                 }
             })
-        with open("temp.txt", "a") as f:
-            for item in results:
-                f.write(json.dumps(item) + "\n")
         return results
 
     def copy_to_clip(self, text):
         clipboard.copy(text)
-
-    def log_error(self, fun_str):
-        with open(self.LOG_FILE, "a") as f:
-            f.write("%s: \n%s" % (fun_str, traceback.format_exc()))
 
 
 if __name__ == "__main__":
