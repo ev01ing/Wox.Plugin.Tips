@@ -1,5 +1,3 @@
-# coding:utf-8
-from wox import Wox, WoxAPI
 import time
 import json
 import traceback
@@ -7,8 +5,7 @@ import logging
 import clipboard
 import sys
 
-reload(sys)
-sys.setdefaultencoding("utf-8")
+from wox import Wox, WoxAPI
 
 LOG_FILE = "./logs/log_tips.log"
 
@@ -30,12 +27,12 @@ class Main(Wox):
 
         results = []
         results.append({
-            "Title": u'stroe tip : "%s"' % key,
-            "SubTitle": u'tips: "%s"' % key,
+            "Title": 'stroe tip : "%s"' % key,
+            "SubTitle": 'tips : "%s"' % key,
             "IcoPath": "Images/pic.png",
             "JsonRPCAction": {
                 "method": "store_tip",
-                "parameters": [key, ],
+                "parameters": [key],
                 "dontHideAfterAction": True
             }
         })
@@ -76,7 +73,7 @@ class Main(Wox):
                 "JsonRPCAction": {
                     "method": "delete_tip",
                     "parameters": [tip['updated_time']],
-                    "dontHideAfterAction": False
+                    "dontHideAfterAction": True
                 }
             })
         return results
@@ -94,6 +91,7 @@ class Main(Wox):
             with open(self.TIPS_FILE, "w") as f:
                 for tip in tips:
                     f.write(json.dumps(tip) + "\n")
+            WoxAPI.change_query("tip")
         except:
             logging.error(traceback.format_exc())
 
