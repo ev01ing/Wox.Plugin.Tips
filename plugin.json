@@ -1,12 +1,12 @@
 {
     "ID":"B4D3B69656E14D44865C8D818EAE47C6",
     "ActionKeyword":"tip",
-    "Name":"tips",
+    "Name":"tips.fix",
     "Description":"快速记录你的小想法",
-    "Author":"ev01ing",
-    "Version":"1.1.0",
+    "Author":"magicdmer",
+    "Version":"1.2.0",
     "Language":"python",
-    "Website":"https://github.com/ev01ing/Wox.Plugin.Tips",
+    "Website":"https://github.com/magicdmer/Wox.Plugin.Tips",
     "IcoPath": "Images\\pic.png", 
     "ExecuteFileName":"main.py"
 }
