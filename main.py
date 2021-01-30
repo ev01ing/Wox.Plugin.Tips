@@ -7,8 +7,9 @@ import logging
 import clipboard
 import sys
 
-reload(sys)
-sys.setdefaultencoding("utf-8")
+if sys.version[0] == "2":
+    reload(sys)
+    sys.setdefaultencoding("utf-8")
 
 LOG_FILE = "./logs/log_tips.log"
 
@@ -30,7 +31,7 @@ class Main(Wox):
 
         results = []
         results.append({
-            "Title": u'stroe tip : "%s"' % key,
+            "Title": u'store tip : "%s"' % key,
             "SubTitle": u'tips: "%s"' % key,
             "IcoPath": "Images/pic.png",
             "JsonRPCAction": {

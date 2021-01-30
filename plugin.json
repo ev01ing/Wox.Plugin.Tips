@@ -4,7 +4,7 @@
     "Name":"tips",
     "Description":"快速记录你的小想法",
     "Author":"ev01ing",
-    "Version":"1.1.0",
+    "Version":"1.2.0",
     "Language":"python",
     "Website":"https://github.com/ev01ing/Wox.Plugin.Tips",
     "IcoPath": "Images\\pic.png", 
